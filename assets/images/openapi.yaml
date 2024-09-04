@@ -1,0 +1,560 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/v1/product:
+    get:
+      tags:
+      - product-controller
+      operationId: getAllProduct
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseListProductResponse"
+    put:
+      tags:
+      - product-controller
+      operationId: updateProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseProductResponse"
+    post:
+      tags:
+      - product-controller
+      operationId: createNewProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseProductResponse"
+    patch:
+      tags:
+      - product-controller
+      operationId: updateStock
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseProductResponse"
+  /api/v1/customer:
+    get:
+      tags:
+      - customer-controller
+      operationId: getAllCustomer
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: size
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 5
+      - name: sortType
+        in: query
+        required: false
+        schema:
+          type: string
+          default: ASC
+      - name: property
+        in: query
+        required: false
+        schema:
+          type: string
+          default: name
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: phone
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: address
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: birthDate
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageResponseCustomerResponse"
+    put:
+      tags:
+      - customer-controller
+      operationId: updateCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+    post:
+      tags:
+      - customer-controller
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomerRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+  /api/v1/transaction:
+    post:
+      tags:
+      - purchase-controller
+      operationId: savePurchase
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/TransactionResponse"
+  /api/v1/auth/register/customer:
+    post:
+      tags:
+      - auth-controller
+      operationId: registerCustumer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestDTOCustomerRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseRegisterResponse"
+  /api/v1/auth/login:
+    post:
+      tags:
+      - auth-controller
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestDTOString"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseLoginResponse"
+  /api/v1/product/{id}:
+    get:
+      tags:
+      - product-controller
+      operationId: getProductById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseProductResponse"
+    delete:
+      tags:
+      - product-controller
+      operationId: deleteProductById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CommonResponseProductResponse"
+  /api/v1/customer/{id}:
+    get:
+      tags:
+      - customer-controller
+      operationId: getCustomer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CustomerResponse"
+    delete:
+      tags:
+      - customer-controller
+      operationId: deleteCustomer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    ProductRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int64
+        stock:
+          type: integer
+          format: int32
+    CommonResponseProductResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/ProductResponse"
+    ProductResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int64
+        stock:
+          type: integer
+          format: int32
+    CustomerRequest:
+      required:
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          maxLength: 2147483647
+          minLength: 5
+          type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+        phone_number:
+          type: string
+    Role:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          enum:
+          - ADMIN
+          - CUSTOMER
+          - SELLER
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        roles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Role"
+    CustomerResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        address:
+          type: string
+        phone_number:
+          type: string
+        birth_date:
+          type: string
+          format: date-time
+    TransactionDetailRequest:
+      type: object
+      properties:
+        productId:
+          type: string
+        qty:
+          type: integer
+          format: int32
+    TransactionRequest:
+      type: object
+      properties:
+        customerId:
+          type: string
+        transactionDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionDetailRequest"
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phoneNumber:
+          type: string
+        address:
+          type: string
+        birthDate:
+          type: string
+          format: date-time
+        user:
+          $ref: "#/components/schemas/User"
+        deleted:
+          type: boolean
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+          format: int64
+        stock:
+          type: integer
+          format: int32
+    TransactionDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        product:
+          $ref: "#/components/schemas/Product"
+        productPrice:
+          type: integer
+          format: int64
+        qty:
+          type: integer
+          format: int32
+    TransactionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        customer:
+          $ref: "#/components/schemas/Customer"
+        date:
+          type: string
+          format: date-time
+        transactionDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/TransactionDetail"
+        totalPayment:
+          type: integer
+          format: int64
+    AuthRequestDTOCustomerRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        data:
+          $ref: "#/components/schemas/CustomerRequest"
+    CommonResponseRegisterResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/RegisterResponse"
+    RegisterResponse:
+      type: object
+      properties:
+        username:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - CUSTOMER
+          - SELLER
+    AuthRequestDTOString:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        data:
+          type: string
+    CommonResponseLoginResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          $ref: "#/components/schemas/LoginResponse"
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        role:
+          type: string
+          enum:
+          - ADMIN
+          - CUSTOMER
+          - SELLER
+    CommonResponseListProductResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductResponse"
+    PageResponseCustomerResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomerResponse"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
